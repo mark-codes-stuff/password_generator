@@ -1,4 +1,5 @@
-# For FAQ/help or to get the latest version of this script please check https://github.com/mark-codes-stuff/xxxxxxxxx
+# For FAQ/help or to get the latest version of this script please check https://github.com/mark-codes-stuff/password_generator
+# Licensed under the MIT Licence - see the LICENCE file in the repo for details
 
 # Ensure wordlist.txt is in the same directory as the script
 $ErrorActionPreference = "Continue"
