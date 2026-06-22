@@ -21,48 +21,30 @@ $passwordList = "$workingDir\wordlist.txt"
 $4lengthWords = Get-Content -Path $passwordList | Where-Object {$_.length -eq 4}
 $5lengthWords = Get-Content -Path $passwordList | Where-Object {$_.length -eq 5}
 
-# If we're making a 13 char initial password we can either do 2x4 + 1x5 letter words, or 1x4 + 2x5 letter words, then add a number on the end
+# If we're making a 13 char initial password we can either do 2x4 + 1x5 letter words, or 1x4 + 2x5 letter words
 # Let's keep it random
 $passwordMode = Get-Random -Minimum 0 -Maximum 2
 
-#Write-Log "$passwordMode"
-
-# Just for testing:
-# $passwordMode = 1
-
 if ($passwordMode) {
-	$firstWord = $4lengthWords | Get-Random
-	$secondWord = $4lengthWords | Get-Random
-	$thirdWord = $5lengthWords | Get-Random
-	$passwordNumber = Get-Random -Minimum 1 -Maximum 10
-
-	Write-Log "Password words are: $firstWord $secondWord $thirdWord"
-
-	$mergePassword = $firstWord+$secondWord+$thirdWord+$passwordNumber
-	#Write-Log "Test output: initial merged password is: $mergePassword"
-
-	# Capitalise the first letter and reform it again
-	$mergePassword = $mergePassword.Substring(0,1).ToUpper() + $mergePassword.Substring(1)
-	
-	Write-Log "Password is: $mergePassword"
-}
-else {
-	$firstWord = $4lengthWords | Get-Random
-	$secondWord = $5lengthWords | Get-Random
-	$thirdWord = $5lengthWords | Get-Random
-	$passwordNumber = Get-Random -Minimum 1 -Maximum 10
-
-	Write-Log "Password words are: $firstWord $secondWord $thirdWord"
-
-	$mergePassword = $firstWord+$secondWord+$thirdWord+$passwordNumber
-	#Write-Log "Test output: initial merged password is: $mergePassword"
-
-	# Capitalise the first letter and reform it again
-	$mergePassword = $mergePassword.Substring(0,1).ToUpper() + $mergePassword.Substring(1)
-	
-	Write-Log "Password is: $mergePassword"
+    $firstWord  = $4lengthWords | Get-Random
+    $secondWord = $4lengthWords | Get-Random
+    $thirdWord  = $5lengthWords | Get-Random
+} else {
+    $firstWord  = $4lengthWords | Get-Random
+    $secondWord = $5lengthWords | Get-Random
+    $thirdWord  = $5lengthWords | Get-Random
 }
 
+# Random number for the end of the password
+$passwordNumber = Get-Random -Minimum 1 -Maximum 10
+
+Write-Log "Password words are: $firstWord $secondWord $thirdWord"
+# Merge the 3 words & number into one string
+$mergePassword = $firstWord + $secondWord + $thirdWord + $passwordNumber
+# Capitalise the first letter
+$mergePassword = $mergePassword.Substring(0,1).ToUpper() + $mergePassword.Substring(1)
+# Provide the full password
+Write-Log "Password is: $mergePassword"
 Read-Host "Copy the password and/or hit enter to close"
     
 }
