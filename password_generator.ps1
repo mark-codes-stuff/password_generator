@@ -38,14 +38,16 @@ if ($passwordMode) {
 # Random number for the end of the password
 $passwordNumber = Get-Random -Minimum 1 -Maximum 10
 
-Write-Log "Password words are: $firstWord $secondWord $thirdWord"
+Write-Log "Password components are: $firstWord $secondWord $thirdWord $passwordNumber"
 # Merge the 3 words & number into one string
 $mergePassword = $firstWord + $secondWord + $thirdWord + $passwordNumber
 # Capitalise the first letter
 $mergePassword = $mergePassword.Substring(0,1).ToUpper() + $mergePassword.Substring(1)
 # Provide the full password
-Write-Log "Password is: $mergePassword"
-Read-Host "Copy the password and/or hit enter to close"
+Write-Log "Full password is: $mergePassword"
+Write-Log "Password copied to clipboard"
+Set-Clipboard -Value $mergePassword
+Read-Host "Enter/Ctrl+C to close"
     
 }
 
